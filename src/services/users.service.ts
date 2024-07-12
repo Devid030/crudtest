@@ -1,29 +1,42 @@
-import { IUser, UserCreationParams } from "@/src/database/models/user.model";
-import { UserRepository } from "@/src/database/repositories/user.repositories";
 
-export class UserService {
-    private userRepository: UserRepository;
+// import UserRepository  from "@/src/database/repositories/user.repositories";
+// import { UserCreationRepoParams, UserUpdateRepoParams } from "@/src/database/repositories/types/user-repository.type";
 
-    constructor() {
-        this.userRepository = new UserRepository();
-    }
+// class UserService {
+//     async getUserById(userId: string) {
+//         try {
+//             const updateUser = await UserRepository.findById(userId);
+//             return updateUser;
+//         } catch (error) {
+//             throw error;
+//         }
+//     }
+ 
+//     async createNewUser(userInfo: UserCreationRepoParams) {
+//         try {
+//             const newUser = await UserRepository.create(userInfo);
+//             return newUser;
+//         } catch (error) {
+//             throw error;
+//         }
+//     }
 
-    public async getAllUsers(): Promise<IUser[]>{
-        try {
-            return await this.userRepository.getAllUsers();
-        } catch (error) {
-            console.log('Can not fetch all user', error)
-            throw new Error('Failed to fetch all user', )
-        }
-    }
+//     async updateUser(userInfo: UserUpdateRepoParams){
+//         try {
+//             const userUpdate = await UserRepository.updateById(userInfo)
+//             return userUpdate;
+//         } catch (error) {
+//          throw error   
+//         }
+//     }
 
-    public async createUser(params: UserCreationParams): Promise<IUser> {
-        try {
-            return await this.userRepository.createUser(params);
-        } catch (error) {
-            console.log('Error create user:', error);
-            throw new Error('Failed to create user');
-        }
-    }
+//     async deleteUserById(userId: string) {
+//         try {
+//             await UserRepository.deleteById(userId);
+//         } catch (error) {
+//             throw error;
+//         }
+//     }
+// }
 
-}
+// export default new UserService();

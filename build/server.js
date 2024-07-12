@@ -38,106 +38,19 @@ var import_fs = __toESM(require("fs"));
 var import_path = __toESM(require("path"));
 
 // src/routes/v1/routes.ts
-var import_runtime3 = require("@tsoa/runtime");
-
-// src/controllers/user.controller.ts
-var import_tsoa = require("tsoa");
-
-// src/database/models/user.model.ts
-var import_mongoose = require("mongoose");
-var userSchema = new import_mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true }
-});
-var User = (0, import_mongoose.model)("User", userSchema);
-var user_model_default = User;
-
-// src/database/repositories/user.repositories.ts
-var UserRepository = class {
-  // find all user
-  async getAllUsers() {
-    return user_model_default.find();
-  }
-  // create user POST 
-  async createUser(data) {
-    try {
-      const newUser = new user_model_default(data);
-      return newUser.save();
-    } catch (error) {
-      console.error(`Error create user: `, error);
-      throw new Error("Failed to create user");
-    }
-  }
-};
-
-// src/services/users.service.ts
-var UserService = class {
-  constructor() {
-    this.userRepository = new UserRepository();
-  }
-  async getAllUsers() {
-    try {
-      return await this.userRepository.getAllUsers();
-    } catch (error) {
-      console.log("Can not fetch all user", error);
-      throw new Error("Failed to fetch all user");
-    }
-  }
-  async createUser(params) {
-    try {
-      return await this.userRepository.createUser(params);
-    } catch (error) {
-      console.log("Error create user:", error);
-      throw new Error("Failed to create user");
-    }
-  }
-};
-
-// src/controllers/user.controller.ts
-var UserController = class extends import_tsoa.Controller {
-  constructor() {
-    super(...arguments);
-    this.userService = new UserService();
-  }
-  async getAllUsers() {
-    try {
-      return await this.userService.getAllUsers();
-    } catch (error) {
-      console.log("Cannot get user");
-      return void 0;
-    }
-  }
-  async createNewUser(requestBody) {
-    try {
-      return await this.userService.createUser(requestBody);
-    } catch (error) {
-      console.log("Failed to create user: ", error);
-      throw new Error("Failed to create user");
-    }
-  }
-};
-__decorateClass([
-  (0, import_tsoa.Get)("/")
-], UserController.prototype, "getAllUsers", 1);
-__decorateClass([
-  (0, import_tsoa.Post)("/"),
-  __decorateParam(0, (0, import_tsoa.Body)())
-], UserController.prototype, "createNewUser", 1);
-UserController = __decorateClass([
-  (0, import_tsoa.Route)("/v1/users")
-], UserController);
+var import_runtime2 = require("@tsoa/runtime");
 
 // src/controllers/products.controller.ts
-var import_tsoa2 = require("tsoa");
+var import_tsoa = require("tsoa");
 
 // src/database/models/products.model.ts
-var import_mongoose2 = require("mongoose");
-var productSchema = new import_mongoose2.Schema({
+var import_mongoose = require("mongoose");
+var productSchema = new import_mongoose.Schema({
   name: { type: String, required: true },
   category: { type: String, required: true },
   price: { type: Number, required: true }
 });
-var Product = (0, import_mongoose2.model)("Product", productSchema);
+var Product = (0, import_mongoose.model)("Product", productSchema);
 
 // src/database/repositories/products.repositories.ts
 var ProductRepository = class {
@@ -246,7 +159,7 @@ var ProductService = class {
 var products_service_default = new ProductService();
 
 // src/controllers/products.controller.ts
-var ProductController = class extends import_tsoa2.Controller {
+var ProductController = class extends import_tsoa.Controller {
   async getAllProducts(sort, filter, category, price) {
     console.log("Query parameter - filter:", "sort:", sort, "filter:", filter, "category:", category);
     try {
@@ -291,53 +204,35 @@ var ProductController = class extends import_tsoa2.Controller {
   }
 };
 __decorateClass([
-  (0, import_tsoa2.Get)("/"),
-  __decorateParam(0, (0, import_tsoa2.Query)()),
-  __decorateParam(1, (0, import_tsoa2.Query)()),
-  __decorateParam(2, (0, import_tsoa2.Query)()),
-  __decorateParam(3, (0, import_tsoa2.Query)())
+  (0, import_tsoa.Get)("/"),
+  __decorateParam(0, (0, import_tsoa.Query)()),
+  __decorateParam(1, (0, import_tsoa.Query)()),
+  __decorateParam(2, (0, import_tsoa.Query)()),
+  __decorateParam(3, (0, import_tsoa.Query)())
 ], ProductController.prototype, "getAllProducts", 1);
 __decorateClass([
-  (0, import_tsoa2.Post)("/"),
-  __decorateParam(0, (0, import_tsoa2.Body)())
+  (0, import_tsoa.Post)("/"),
+  __decorateParam(0, (0, import_tsoa.Body)())
 ], ProductController.prototype, "createProduct", 1);
 __decorateClass([
-  (0, import_tsoa2.Get)("{id}"),
-  __decorateParam(0, (0, import_tsoa2.Path)())
+  (0, import_tsoa.Get)("{id}"),
+  __decorateParam(0, (0, import_tsoa.Path)())
 ], ProductController.prototype, "getProductById", 1);
 __decorateClass([
-  (0, import_tsoa2.Put)("{id}"),
-  __decorateParam(0, (0, import_tsoa2.Path)()),
-  __decorateParam(1, (0, import_tsoa2.Body)())
+  (0, import_tsoa.Put)("{id}"),
+  __decorateParam(0, (0, import_tsoa.Path)()),
+  __decorateParam(1, (0, import_tsoa.Body)())
 ], ProductController.prototype, "updateProduct", 1);
 __decorateClass([
-  (0, import_tsoa2.Delete)("{id}"),
-  __decorateParam(0, (0, import_tsoa2.Path)())
+  (0, import_tsoa.Delete)("{id}"),
+  __decorateParam(0, (0, import_tsoa.Path)())
 ], ProductController.prototype, "deleteProduct", 1);
 ProductController = __decorateClass([
-  (0, import_tsoa2.Route)("/v1/products")
+  (0, import_tsoa.Route)("/v1/products")
 ], ProductController);
 
 // src/routes/v1/routes.ts
 var models = {
-  "IUser": {
-    "dataType": "refObject",
-    "properties": {
-      "name": { "dataType": "string", "required": true },
-      "email": { "dataType": "string", "required": true }
-    },
-    "additionalProperties": false
-  },
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-  "UserCreationParams": {
-    "dataType": "refObject",
-    "properties": {
-      "name": { "dataType": "string", "required": true },
-      "email": { "dataType": "string", "required": true }
-    },
-    "additionalProperties": false
-  },
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   "IProduct": {
     "dataType": "refObject",
     "properties": {
@@ -354,60 +249,12 @@ var models = {
   }
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
-var templateService = new import_runtime3.ExpressTemplateService(models, { "noImplicitAdditionalProperties": "throw-on-extras", "bodyCoercion": true });
+var templateService = new import_runtime2.ExpressTemplateService(models, { "noImplicitAdditionalProperties": "throw-on-extras", "bodyCoercion": true });
 function RegisterRoutes(app2) {
   app2.get(
-    "/v1/users",
-    ...(0, import_runtime3.fetchMiddlewares)(UserController),
-    ...(0, import_runtime3.fetchMiddlewares)(UserController.prototype.getAllUsers),
-    async function UserController_getAllUsers(request, response, next) {
-      const args = {};
-      let validatedArgs = [];
-      try {
-        validatedArgs = templateService.getValidatedArgs({ args, request, response });
-        const controller = new UserController();
-        await templateService.apiHandler({
-          methodName: "getAllUsers",
-          controller,
-          response,
-          next,
-          validatedArgs,
-          successStatus: void 0
-        });
-      } catch (err) {
-        return next(err);
-      }
-    }
-  );
-  app2.post(
-    "/v1/users",
-    ...(0, import_runtime3.fetchMiddlewares)(UserController),
-    ...(0, import_runtime3.fetchMiddlewares)(UserController.prototype.createNewUser),
-    async function UserController_createNewUser(request, response, next) {
-      const args = {
-        requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "UserCreationParams" }
-      };
-      let validatedArgs = [];
-      try {
-        validatedArgs = templateService.getValidatedArgs({ args, request, response });
-        const controller = new UserController();
-        await templateService.apiHandler({
-          methodName: "createNewUser",
-          controller,
-          response,
-          next,
-          validatedArgs,
-          successStatus: void 0
-        });
-      } catch (err) {
-        return next(err);
-      }
-    }
-  );
-  app2.get(
     "/v1/products",
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController),
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController.prototype.getAllProducts),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController.prototype.getAllProducts),
     async function ProductController_getAllProducts(request, response, next) {
       const args = {
         sort: { "in": "query", "name": "sort", "dataType": "string" },
@@ -434,8 +281,8 @@ function RegisterRoutes(app2) {
   );
   app2.post(
     "/v1/products",
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController),
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController.prototype.createProduct),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController.prototype.createProduct),
     async function ProductController_createProduct(request, response, next) {
       const args = {
         requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "IProduct" }
@@ -459,8 +306,8 @@ function RegisterRoutes(app2) {
   );
   app2.get(
     "/v1/products/:id",
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController),
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController.prototype.getProductById),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController.prototype.getProductById),
     async function ProductController_getProductById(request, response, next) {
       const args = {
         id: { "in": "path", "name": "id", "required": true, "dataType": "string" }
@@ -484,8 +331,8 @@ function RegisterRoutes(app2) {
   );
   app2.put(
     "/v1/products/:id",
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController),
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController.prototype.updateProduct),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController.prototype.updateProduct),
     async function ProductController_updateProduct(request, response, next) {
       const args = {
         id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -510,8 +357,8 @@ function RegisterRoutes(app2) {
   );
   app2.delete(
     "/v1/products/:id",
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController),
-    ...(0, import_runtime3.fetchMiddlewares)(ProductController.prototype.deleteProduct),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController),
+    ...(0, import_runtime2.fetchMiddlewares)(ProductController.prototype.deleteProduct),
     async function ProductController_deleteProduct(request, response, next) {
       const args = {
         id: { "in": "path", "name": "id", "required": true, "dataType": "string" }
@@ -536,9 +383,9 @@ function RegisterRoutes(app2) {
 }
 
 // src/middlewares/error.ts
-var import_tsoa3 = require("tsoa");
+var import_tsoa2 = require("tsoa");
 function errorHandler(err, req, res, next) {
-  if (err instanceof import_tsoa3.ValidateError) {
+  if (err instanceof import_tsoa2.ValidateError) {
     console.warn(`Caught Validateion Error for ${req.path}: `, err.fields);
     res.status(422).json({
       message: "Validate Failed",
@@ -593,10 +440,10 @@ var configs = loadConfig();
 var config_default = configs;
 
 // src/database/connection.ts
-var import_mongoose3 = __toESM(require("mongoose"));
+var import_mongoose2 = __toESM(require("mongoose"));
 async function connectMongoDB() {
   try {
-    await import_mongoose3.default.connect(
+    await import_mongoose2.default.connect(
       config_default.mongodbUrl
     );
     console.log("Connect to MongoDB successfully!");

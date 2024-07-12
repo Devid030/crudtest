@@ -1,21 +1,21 @@
-import { Schema, model } from 'mongoose';
+import mongoose from "mongoose";
 
 export interface IUser {
+  _id: string;
   name: string;
   email: string;
+  gender: string;
+  age: string;
 }
 
-export interface UserCreationParams {
-  name: string;
-  email: string;
-}
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true},
+  email: { type: String, required: true, unique: true},
+  gender: { type: String, required: true},
+  age: { type: String, required: true}
+})
 
-const userSchema = new Schema<IUser>({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-});
+const UserModel = mongoose.model<IUser>('User', userSchema);
 
-const User = model<IUser>('User', userSchema);
-
-export default User;
+export default UserModel
 
