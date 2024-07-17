@@ -84,7 +84,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            echo "NODE_ENV=production" >> /home/ubuntu/apps/build/configs/.env.production
+            echo "NODE_ENV=production" > /home/ubuntu/apps/build/configs/.env.production
             echo "PORT=${{secrets.PORT}}" >> /home/ubuntu/apps/build/configs/.env.production
             echo "MONGODB_URL=${{secrets.MONGODB_URL}}" >> /home/ubuntu/apps/build/configs/.env.production
 
