@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: . 
+        working-directory: "." 
 
     steps:
       - name: Checkout code
@@ -32,6 +32,11 @@ jobs:
 
       - name: List build directory contents
         run: ls -la ./build
+
+      - name: Run tests
+        env:
+          CUSTOM_ENV_VARIABLE: ${{ secrets.MONGODB_URL }}
+        run: yarn test
 
       - name: Archive build artifacts
         uses: actions/upload-artifact@v4
@@ -103,8 +108,7 @@ jobs:
             yarn install --production
 
             # Debug: List files after installation
-            ls -la 
-            
+            ls -la /home/ubuntu/apps/build
 
             # Check if the PM2 process is running
             if pm2 show auth > /dev/null; then
