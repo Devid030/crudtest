@@ -74,7 +74,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "./apps/build/*"
+          source: ".build/*"
           target: "/home/ubuntu/apps/build"
           strip_components: 1
 
