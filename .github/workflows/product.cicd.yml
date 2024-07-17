@@ -104,6 +104,7 @@ jobs:
 
             # Debug: List files after installation
             ls -la 
+            
 
             # Check if the PM2 process is running
             if pm2 show auth > /dev/null; then
