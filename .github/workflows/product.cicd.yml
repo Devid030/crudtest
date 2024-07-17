@@ -118,4 +118,3 @@ jobs:
               echo "Application is not running. Starting..."
               pm2 start yarn --name auth -- start
             fi
- 
