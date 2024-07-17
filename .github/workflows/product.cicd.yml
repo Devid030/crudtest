@@ -54,7 +54,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4  # Downloads artifacts from the build job
         with:
-          name: build  # The name of the artifact to download
+          name: build-artifact  # The name of the artifact to download
           path: ./path/to/artifacts # The path to store the downloaded artifact
 
       - name: Prepare Deployment Directories
