@@ -74,8 +74,8 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }} # Update as per your setup
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "./apps/backend/user-service/build/*"
-          target: "/home/ubuntu/apps/user-service/build"
+          source: "./apps/backend/build/*"
+          target: "/home/ubuntu/apps/build"
           strip_components: 4
 
       - name: Create .env File
