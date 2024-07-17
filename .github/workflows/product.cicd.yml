@@ -54,7 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
-          path: ./artifacts
+          path: ./build
 
       - name: Prepare Deployment Directories
         uses: appleboy/ssh-action@master
@@ -74,7 +74,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "./artifacts/*"
+          source: "./apps/build/*"
           target: "/home/ubuntu/apps/build"
           strip_components: 1
 
