@@ -84,9 +84,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            echo "NODE_ENV=production" > /home/ubuntu/apps/build/.env.production
-            echo "PORT=${{secrets.PORT}}" >> /home/ubuntu/apps/build/.env.production
-            echo "DATABASE_URL=${{secrets.MONGODB_URL}}" >> /home/ubuntu/apps/build/.env.production
+            echo "NODE_ENV=production" > /home/ubuntu/apps/build/configs/.env.production
+            echo "PORT=${{secrets.PORT}}" >> /home/ubuntu/apps/build/configs/.env.production
+            echo "DATABASE_URL=${{secrets.MONGODB_URL}}" >> /home/ubuntu/apps/build/configs/.env.production
 
       - name: Install Dependencies and Restart Application
         uses: appleboy/ssh-action@master
@@ -101,6 +101,8 @@ jobs:
             cd /home/ubuntu/apps/build
 
             yarn install --production
+
+            ls - la
 
             # Check if the PM2 process is running
             if pm2 show your-service-name > /dev/null; then
