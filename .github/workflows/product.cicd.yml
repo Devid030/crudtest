@@ -76,7 +76,7 @@ jobs:
           port: 22
           source: "./apps/backend/build/*"
           target: "/home/ubuntu/apps/build"
-          strip_components: 4
+          strip_components: 1
 
       - name: Create .env File
         uses: appleboy/ssh-action@master
