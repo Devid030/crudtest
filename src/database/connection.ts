@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 import configs from '@/src/config'
 
+console.log('========Configs==========')
+console.log(configs)
+console.log('========Configs==========')
+
 export async function connectMongoDB() {
     try {
         await mongoose.connect(
