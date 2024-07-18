@@ -107,7 +107,7 @@ jobs:
             cd /home/ubuntu/apps/build
             yarn install --production
 
-            # Debug: List files after installation
+            # Debug: List files after installationn
             ls -la /home/ubuntu/apps/build
 
             # Check if the PM2 process is running
