@@ -8,6 +8,6 @@ export async function connectMongoDB() {
         );
         console.log("Connect to MongoDB successfully!");
     } catch (error: any) {
-        console.log("Error Conecction to MongoDB", error.messsage)
+        console.log("Error Conection to MongoDB", error.messsage)
     }
 }
